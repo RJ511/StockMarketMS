@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Users - StockSim{% endblock %}
+
+{% block content %}
+<h2>Criar Novo Utilizador</h2>
+<form action="/create-user" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome do utilizador</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Criar</button>
+</form>
+{% endblock %}

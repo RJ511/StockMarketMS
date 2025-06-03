@@ -7,13 +7,13 @@ router = APIRouter()
 templates = Jinja2Templates(directory="Views")
 
 SERVICE_MAP = {
-    "users": "http://localhost:1001",
-    "stocks": "http://localhost:1003",
-    "orders": "http://localhost:1002",
+    "user": "http://localhost:1001",
+    "stock": "http://localhost:1003",
+    "order": "http://localhost:1002",
     # Podes adicionar mais serviços aqui no futuro
 }
 
-@router.api_route("/proxy/{service}/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+@router.api_route("/{service}/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 async def proxy(service: str, path: str, request: Request):
     base_url = SERVICE_MAP.get(service)
     if not base_url:

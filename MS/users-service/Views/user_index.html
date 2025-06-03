@@ -5,7 +5,8 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Utilizadores</h2>
-    <a href="/proxy/users/users/create" class="btn btn-primary">+ Criar Novo Utilizador</a>
+    <a href="/user/create" class="btn btn-primary">+ Criar Novo Utilizador</a>
+
 </div>
 
 {% if users %}
@@ -14,6 +15,7 @@
         <tr>
             <th>Nome</th>
             <th>Saldo (€)</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +23,12 @@
         <tr>
             <td>{{ user.name }}</td>
             <td>{{ "%.2f"|format(user.balance) }}</td>
+            <td>
+                <a href="/user/edit/{{ user.id }}" class="btn btn-sm btn-warning">Editar</a>
+                <form action="/user/delete-user/{{ user.id }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Apagar</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

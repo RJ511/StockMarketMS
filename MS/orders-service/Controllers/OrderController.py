@@ -21,6 +21,28 @@ templates = Jinja2Templates(directory="views")
 async def list_orders():
     return Order.all()
 
+async def process_order_matching(order: Order):
+    opposite_type = "buy" if order.type == "sell" else "sell"
+    all_orders = Order.all()
+
+    for existing in all_orders:
+        if (
+            existing.type == opposite_type and
+            existing.stock_id == order.stock_id and
+            existing.quantity == order.quantity and
+            (
+                (order.type == "buy" and order.price >= existing.price) or
+                (order.type == "sell" and order.price <= existing.price)
+            )
+        ):
+            # Simula transação (no futuro: atualizar saldos)
+            order.delete()
+            existing.delete()
+            print(f"✔️ Match efetuado entre {order.id} e {existing.id}")
+            return True
+
+    return False
+
 async def create_order(request: Request):
     form = await request.form()
     order = Order(
@@ -32,6 +54,7 @@ async def create_order(request: Request):
         price=float(form["price"])
     )
     order.save()
+    await process_order_matching(order)
     return RedirectResponse(url="/orders", status_code=303)
 
 async def order_edit(request: Request, order_id: str):

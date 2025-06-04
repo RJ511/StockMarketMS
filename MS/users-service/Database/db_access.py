@@ -34,6 +34,13 @@ def update_user_by_id(user_id: str, name: str, balance: float):
     conn.commit()
     conn.close()
 
+def update_user_balance_by_id(user_id: str, balance: float):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE users SET balance = ? WHERE id = ?", (balance, user_id))
+    conn.commit()
+    conn.close()
+
 def delete_user_by_id(user_id: str):
     conn = get_connection()
     cursor = conn.cursor()

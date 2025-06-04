@@ -1,8 +1,9 @@
+# database.py
 import sqlite3
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "users.db")  # aponta para Database/stocks.db
+DB_PATH = os.path.join(BASE_DIR, "orders.db")
 
 def get_connection():
     return sqlite3.connect(DB_PATH)

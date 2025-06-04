@@ -31,3 +31,9 @@ async def update_user_route(request: Request, user_id: str):
 @router.post("/delete-user/{user_id}")
 async def delete_user_route(user_id: str):
     return await delete_user(user_id)
+
+
+@router.get("/api/users")
+async def api_users():
+    users = await list_users()
+    return [user.__dict__ for user in users]

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Ordens - StockSim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Ordens de Compra/Venda</h2>
+    <a href="/order/create" class="btn btn-primary">+ Nova Ordem</a>
+</div>
+
+{% if orders %}
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Utilizador</th>
+            <th>Ação</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+            <th>Preço (€)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.user_id }}</td>
+            <td>{{ order.stock_id }}</td>
+            <td>{{ order.type }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ "%.2f"|format(order.price) }}</td>
+            <td>
+                <a href="/order/edit/{{ order.id }}" class="btn btn-sm btn-warning">Editar</a>
+                <form action="/order/delete/{{ order.id }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Apagar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">Nenhuma ordem registada ainda.</p>
+{% endif %}
+{% endblock %}

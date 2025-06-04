@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Stocks - StockSim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Ações Disponíveis</h2>
+    <a href="/stock/create" class="btn btn-primary">+ Nova Ação</a>
+</div>
+
+{% if stocks %}
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Preço (€)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.name }}</td>
+            <td>{{ "%.2f"|format(stock.price) }}</td>
+            <td>
+                <a href="/stock/edit/{{ stock.id }}" class="btn btn-sm btn-warning">Editar</a>
+                <form action="/stock/delete/{{ stock.id }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Apagar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">Nenhuma ação registada.</p>
+{% endif %}
+{% endblock %}

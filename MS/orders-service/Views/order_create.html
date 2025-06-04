@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Nova Ordem - StockSim{% endblock %}
+
+{% block content %}
+<h2>Nova Ordem</h2>
+<form action="/order/orders" method="post">
+    <div class="mb-3">
+        <label for="user_id" class="form-label">Utilizador</label>
+        <select class="form-select" id="user_id" name="user_id" required>
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="stock_id" class="form-label">Ação</label>
+        <select class="form-select" id="stock_id" name="stock_id" required>
+            {% for stock in stocks %}
+            <option value="{{ stock.id }}">{{ stock.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="type" class="form-label">Tipo</label>
+        <select class="form-select" id="type" name="type" required>
+            <option value="buy">Compra</option>
+            <option value="sell">Venda</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantidade</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" required>
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Preço Unitário (€)</label>
+        <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="/orders" class="btn btn-secondary ms-2">Cancelar</a>
+</form>
+{% endblock %}

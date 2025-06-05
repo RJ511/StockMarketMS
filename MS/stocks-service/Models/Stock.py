@@ -51,3 +51,14 @@ class Stock:
         row = cursor.fetchone()
         conn.close()
         return cls(id=row[0], name=row[1], price=row[2]) if row else None
+    
+    def update_stock_price(stock_id: str, new_price: float):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE stocks SET price = ? WHERE id = ?",
+            (new_price, stock_id)
+        )
+        conn.commit()
+        conn.close()
+

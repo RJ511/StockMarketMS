@@ -14,6 +14,16 @@ def init_db():
             price REAL NOT NULL
         )
     """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS transactions (
+            id TEXT PRIMARY KEY,
+            buyer_id TEXT NOT NULL,
+            seller_id TEXT NOT NULL,
+            stock_id TEXT NOT NULL,
+            quantity INTEGER NOT NULL,
+            price REAL NOT NULL
+        )
+    """)
     conn.commit()
     conn.close()
 

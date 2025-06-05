@@ -1,5 +1,5 @@
 # Controllers/StockController.py
-from Models.Stock import Stock
+from Models.Stock import *
 from uuid import uuid4
 from fastapi import Request  # type: ignore
 from fastapi.responses import RedirectResponse  # type: ignore

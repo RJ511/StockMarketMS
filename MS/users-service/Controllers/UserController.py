@@ -60,10 +60,10 @@ async def transfer_balance(request: Request):
     if not from_user or not to_user:
         return {"error": "Utilizador não encontrado"}
 
-    if from_user["balance"] < amount:
+    if from_user.balance < amount:
         return {"error": "Saldo insuficiente"}
 
-    update_user_balance_by_id(from_id, from_user["balance"] - amount)
-    update_user_balance_by_id(to_id, to_user["balance"] + amount)
+    update_user_balance_by_id(from_id, from_user.balance - amount)
+    update_user_balance_by_id(to_id, to_user.balance + amount)
 
     return {"status": "Transferência efetuada com sucesso"}

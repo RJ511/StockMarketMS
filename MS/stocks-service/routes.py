@@ -3,6 +3,7 @@ from fastapi import APIRouter, Request  # type: ignore
 from fastapi.responses import HTMLResponse  # type: ignore
 from fastapi.templating import Jinja2Templates  # type: ignore
 from Controllers.StockController import *
+from Models.Stock import Stock # type: ignore
 
 router = APIRouter()
 templates = Jinja2Templates(directory="views")
@@ -38,3 +39,12 @@ async def stocks_delete(stock_id: str):
 async def api_stocks():
     stocks = await list_stocks()
     return [stock.__dict__ for stock in stocks]
+
+@router.post("/api/update-price")
+async def api_update_price(request: Request):
+    data = await request.json()
+    stock_id = data["stock_id"]
+    new_price = float(data["price"])
+    Stock.update_stock_price(stock_id, new_price)
+    return {"status": "Preço atualizado"}
+

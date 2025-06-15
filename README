@@ -2,3 +2,5 @@ Fazer Migrate antes de iniciar, caso não tenha sido feito ainda.
 Ligar todos os microserviços para bom funcionamento.
 
 Rotas além do frontend tem que ser /proxy/ { nome do microserviço } / { rota do microserviço }
+
+Objetivo: ter um cenário pronto, com dados reais (yfinance) para o desenvolvimento de uma AI em um espaço controlado

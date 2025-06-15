@@ -16,7 +16,7 @@ async def create_stock(request: Request):
     price = float(form["price"])
     stock = Stock(id=str(uuid4()), name=name, price=price)
     stock.save()
-    return RedirectResponse(url="/stocks", status_code=303)
+    return RedirectResponse(url="/stock", status_code=303)
 
 async def stock_edit(request: Request, stock_id: str):
     stock = Stock.find(stock_id)

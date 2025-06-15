@@ -46,3 +46,7 @@ async def get_stock_history():
         import traceback
         traceback.print_exc()
         return {"error": str(e)}
+
+@router.get("/api/stocks")
+async def list_all_stocks():
+    return Stock.all()

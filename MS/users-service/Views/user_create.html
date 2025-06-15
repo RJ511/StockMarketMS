@@ -9,6 +9,27 @@
         <label for="name" class="form-label">Nome do utilizador</label>
         <input type="text" class="form-control" id="name" name="name" required>
     </div>
+
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="is_ai" name="is_ai" onchange="toggleAIType()">
+        <label class="form-check-label" for="is_ai">É uma Inteligência Artificial?</label>
+    </div>
+
+    <div class="mb-3" id="ai_type_group" style="display: none;">
+        <label for="ai_type" class="form-label">Tipo de IA</label>
+        <select class="form-select" id="ai_type" name="ai_type">
+            <option value="aggressive">Super Agressiva</option>
+            <option value="calculated">Calculada</option>
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Criar</button>
 </form>
+
+<script>
+function toggleAIType() {
+    const isAI = document.getElementById("is_ai").checked;
+    document.getElementById("ai_type_group").style.display = isAI ? "block" : "none";
+}
+</script>
 {% endblock %}

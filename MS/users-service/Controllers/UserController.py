@@ -13,9 +13,15 @@ async def list_users():
 async def create_user(request: Request):
     form = await request.form()
     name = form["name"]
-    user = User(id=str(uuid4()), name=name, balance=10000.0)
+    is_ai = form.get("is_ai") == "on"
+    ai_type = form.get("ai_type") if is_ai else None
+    balance = form.get("balance", 100)
+
+    user = User(id=str(uuid4()), name=name, balance=100.0, is_ai=is_ai, ai_type=ai_type)
     user.save()
+
     return RedirectResponse(url="/users", status_code=303)
+
 
 async def get_user(user_id: str):
     user = User.find(user_id)

@@ -24,8 +24,11 @@ TICKERS = ["AAPL", "GOOGL", "TSLA", "MSFT", "AMZN"]
 @app.on_event("startup")
 async def startup_event():
     init_db()
+    asyncio.create_task(initialize_stocks())
+    asyncio.create_task(update_stock_prices_loop())
 
-    # Verificar se já existem stocks
+
+async def initialize_stocks():
     if not Stock.all():
         print("📦 A criar ações iniciais...")
         for ticker in TICKERS:
@@ -40,8 +43,6 @@ async def startup_event():
             except Exception as e:
                 print(f"❌ Erro ao criar {ticker}: {e}")
 
-    # Tarefa background para atualizar preços
-    asyncio.create_task(update_stock_prices_loop())
 
 async def update_stock_prices_loop():
     while True:

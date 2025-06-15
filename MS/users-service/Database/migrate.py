@@ -1,4 +1,4 @@
-from database import get_connection
+from Database.database import get_connection
 
 def init_db():
     conn = get_connection()
@@ -7,9 +7,12 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users (
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
-            balance REAL DEFAULT 10000
+            balance REAL DEFAULT 10000,
+            is_ai BOOLEAN DEFAULT 0,
+            ai_type TEXT
         )
     """)
+
     conn.commit()
     conn.close()
 

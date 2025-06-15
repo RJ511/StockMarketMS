@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, Response    # type: ignore
 from fastapi.templating import Jinja2Templates  # type: ignore
 import httpx  # type: ignore
 
+
 router = APIRouter()
 templates = Jinja2Templates(directory="Views")
 
@@ -48,7 +49,7 @@ async def users_page(_: Request):
     return await fetch_html_from("http://localhost:1001/users-page")
 
 @router.get("/stocks", response_class=HTMLResponse)
-async def stocks_page(_: Request):
+async def stocks_page(request: Request):
     return await fetch_html_from("http://localhost:1003/stocks-page")
 
 @router.get("/orders", response_class=HTMLResponse)

@@ -10,7 +10,10 @@ templates = Jinja2Templates(directory="views")
 @router.get("/orders-page", response_class=HTMLResponse)
 async def orders_page(request: Request):
     orders = await list_orders()
-    return templates.TemplateResponse("order_index.html", {"request": request, "orders": orders})
+    return templates.TemplateResponse("order_index.html", {
+        "request": request,
+        "orders": orders
+    })
 
 @router.get("/create", response_class=HTMLResponse)
 async def show_create_order(request: Request):

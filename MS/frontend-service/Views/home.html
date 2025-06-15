@@ -1,8 +1,86 @@
 {% extends "base.html" %}
 
-{% block title %}Home - StockSim{% endblock %}
+{% block title %}Ações - StockSim{% endblock %}
 
 {% block content %}
-<h1>Bem-vindo ao Simulador de Mercado de Ações</h1>
-<p>Utiliza a navegação acima para aceder aos módulos de Utilizadores, Ações e Ordens.</p>
+<h2 class="mt-4 mb-4">Gráficos de Preço das Ações (via API)</h2>
+<div id="charts" class="row row-cols-1 row-cols-md-2 g-4"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+async function loadCharts() {
+    try {
+        const response = await fetch("http://localhost:1003/api/stocks/history");
+        const data = await response.json();
+
+        const container = document.getElementById("charts");
+
+        Object.keys(data).forEach(stockId => {
+            const col = document.createElement("div");
+            col.classList.add("col");
+
+            col.innerHTML = `
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">${stockId}</h5>
+                        <div style="height: 300px;">
+                            <canvas id="chart-${stockId}"></canvas>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(col);
+
+            const ctx = document.getElementById(`chart-${stockId}`).getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data[stockId].labels,
+                    datasets: [{
+                        label: `Preço de ${stockId}`,
+                        data: data[stockId].prices,
+                        borderWidth: 2,
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13,110,253,0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: { display: true, text: "Preço (USD)" }
+                        },
+                        x: {
+                            ticks: {
+                                maxTicksLimit: 5
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                }
+            });
+        });
+    } catch (err) {
+        document.getElementById("charts").innerHTML = "<p class='text-danger'>Erro ao carregar dados das ações.</p>";
+        console.error(err);
+    }
+}
+
+loadCharts();
+</script>
 {% endblock %}

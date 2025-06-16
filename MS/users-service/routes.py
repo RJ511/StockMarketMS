@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates  # type: ignore
 from Controllers.UserController import *
 
 router = APIRouter()
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 
 router.add_api_route("/create-user", create_user, methods=["POST"])
 router.add_api_route("/get-user/{user_id}", get_user, methods=["GET"])

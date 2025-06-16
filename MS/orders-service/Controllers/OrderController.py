@@ -33,7 +33,7 @@ async def update_stock_price(stock_id: str, new_price: float):
         })
 
 
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 
 async def list_orders():
     return Order.all()

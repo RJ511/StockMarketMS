@@ -8,4 +8,4 @@ app = FastAPI()
 app.include_router(user_router)
 
 # app.mount("/views", StaticFiles(directory="views"), name="views")  # REMOVIDO: views são templates, não ficheiros estáticos
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")

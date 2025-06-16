@@ -5,7 +5,7 @@ from Controllers.StockController import *
 from Database.database import get_stock_price_history
 
 router = APIRouter()
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 
 # ---------------- HTML ROUTES ------------------
 

@@ -12,7 +12,7 @@
 <script>
 async function loadCharts() {
     try {
-        const response = await fetch("http://localhost:1003/api/stocks/history");
+        const response = await fetch("http://stocks-service:8000/api/stocks/history");
         const data = await response.json();
 
         const container = document.getElementById("charts");

@@ -16,7 +16,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 app.include_router(stock_router)
 
 TICKERS = ["AAPL", "GOOGL", "TSLA", "MSFT", "AMZN"]

@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse # type: ignore
 from fastapi.templating import Jinja2Templates # type: ignore
 from Database.db_access import *
 
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 
 async def list_users():
     return User.all()

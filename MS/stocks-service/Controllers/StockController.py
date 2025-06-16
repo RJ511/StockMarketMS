@@ -5,7 +5,7 @@ from fastapi import Request  # type: ignore
 from fastapi.responses import RedirectResponse  # type: ignore
 from fastapi.templating import Jinja2Templates  # type: ignore
 
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 
 async def list_stocks():
     return Stock.all()

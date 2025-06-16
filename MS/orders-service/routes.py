@@ -5,7 +5,7 @@ from fastapi.templating import Jinja2Templates  # type: ignore
 from Controllers.OrderController import *
 
 router = APIRouter()
-templates = Jinja2Templates(directory="views")
+templates = Jinja2Templates(directory="Views")
 
 @router.get("/orders-page", response_class=HTMLResponse)
 async def orders_page(request: Request):

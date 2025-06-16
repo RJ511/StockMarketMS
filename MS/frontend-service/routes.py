@@ -8,9 +8,10 @@ router = APIRouter()
 templates = Jinja2Templates(directory="Views")
 
 SERVICE_MAP = {
-    "user": "http://localhost:1001",
-    "stock": "http://localhost:1003",
-    "order": "http://localhost:1002",
+    "user": "http://users-service:8000",
+    "stock": "http://stocks-service:8000",
+    "order": "http://orders-service:8000",
+
     # Podes adicionar mais serviços aqui no futuro
 }
 
@@ -46,12 +47,12 @@ async def home(request: Request):
 
 @router.get("/users", response_class=HTMLResponse)
 async def users_page(_: Request):
-    return await fetch_html_from("http://localhost:1001/users-page")
+    return await fetch_html_from("http://users-service:8000/users-page")
 
 @router.get("/stocks", response_class=HTMLResponse)
 async def stocks_page(request: Request):
-    return await fetch_html_from("http://localhost:1003/stocks-page")
+    return await fetch_html_from("http://stocks-service:8000/stocks-page")
 
 @router.get("/orders", response_class=HTMLResponse)
 async def orders_page(_: Request):
-    return await fetch_html_from("http://localhost:1002/orders-page")
+    return await fetch_html_from("http://orders-service:8000/orders-page")
